@@ -3,7 +3,7 @@
 require 'web_data_scraper'
 
 
-describe Sprit_Monitor do
+describe WebDataScraper do
   it "should parse the js data into a data object" do
     js_source = "\n            <!--\n                var spmResult = " +
                 "[{\"mtsk_id\":\"51D4B432A0951AA0E10080009459E03A\"," +
@@ -16,7 +16,7 @@ describe Sprit_Monitor do
                 "= new SpmConfig(\"e5\", 48.9881, 8.47434, 2, \"http://www." + 
                 "spritpreismonitor.de/\", false, \"28.10.13 18:03:12\");\n" + 
                 "            -->\n            "
-    data = Sprit_Monitor.get_data_from_js_source(js_source)
+    data = WebDataScraper.get_data_from_js_source(js_source)
   
     data['e5'].should eq '1.479'
   end

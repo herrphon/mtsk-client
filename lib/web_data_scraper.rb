@@ -4,7 +4,7 @@ require 'open-uri'
 require 'json'
 
 
-class Sprit_Monitor
+class WebDataScraper
   class Gas_Station < Hash
     def initialize(name, location, operator, radius)
       self[:name] = name
@@ -36,11 +36,11 @@ class Sprit_Monitor
 
   def update_gas_station(gas_station)
     @gas_types.each { |gas_type|
-      sprit_monitor_url = Sprit_Monitor_Url.new(gas_station, gas_type)
+      sprit_monitor_url = UrlBuilder.new(gas_station, gas_type)
       url = sprit_monitor_url.to_s
       doc = Nokogiri::HTML(open(url))
       js_source = doc.css('div.content div.content-box script')[0].content
-      js_data = Sprit_Monitor.get_data_from_js_source(js_source)
+      js_data = WebDataScraper.get_data_from_js_source(js_source)
       gas_station[:prices][gas_type] = js_data[gas_type.to_s]
       
       ['laengengrad', 'breitengrad', 'strasse', 'plz', 'ort'].each { |key|

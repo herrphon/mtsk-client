@@ -1,5 +1,5 @@
 
-class Sprit_Monitor_Url
+class UrlBuilder
   class MyHash < Hash
     class Option
       def initialize(name, value)

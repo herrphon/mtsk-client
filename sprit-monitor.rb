@@ -20,7 +20,7 @@ require 'round_robin_database'
 $log = Logger.new(STDOUT)
 rrdtool = '/opt/rrdtool-1.4.8/bin/rrdtool'
 
-sprit_monitor = Sprit_Monitor.new
+sprit_monitor = WebDataScraper.new
 sprit_monitor.add_gas_station('Jet Durlach', '48.997,8.45645', 'JET')
 sprit_monitor.add_gas_station('Jet Pforzheim', 75175, 'JET')
 
