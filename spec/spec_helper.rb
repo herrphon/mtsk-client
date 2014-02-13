@@ -1,4 +1,9 @@
 require 'simplecov'
+require 'capybara/rspec'
+require 'webmock/rspec'
+
+WebMock.disable_net_connect!(allow_localhost: true)
+
 
 SimpleCov.start do
   add_filter '/spec'
@@ -15,6 +20,7 @@ RSpec.configure do |config|
   # Use the specified formatter
   config.formatter = :documentation # :progress, :html, :textmate
 end
+
 
 
 def add_dir_to_library_path(directory)
