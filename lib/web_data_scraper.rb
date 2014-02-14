@@ -5,7 +5,7 @@ require 'json'
 
 
 class WebDataScraper
-  class Gas_Station < Hash
+  class GasStation < Hash
     def initialize(name, location, operator, radius)
       self[:name] = name
       self[:location] = location
@@ -23,7 +23,7 @@ class WebDataScraper
   end
 
   def add_gas_station(name, location, operator = nil, radius = nil)
-    @gas_stations << Gas_Station.new(name, location, operator, radius)
+    @gas_stations << GasStation.new(name, location, operator, radius)
   end
 
   def update_all_gas_stations
