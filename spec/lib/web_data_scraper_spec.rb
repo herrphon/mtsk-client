@@ -1,5 +1,4 @@
-
-
+require 'spec_helper'
 require 'web_data_scraper'
 
 
