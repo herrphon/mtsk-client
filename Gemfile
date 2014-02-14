@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 group :staging, :production do
   gem 'activerecord', '~> 4.0.2'
   gem 'nokogiri', '~> 1.6.1'
-  gem 'rake', '~> 0.9.2.2'
+  gem 'rake', '~> 10.1.1'
   gem 'sqlite3', '~> 1.3.8'
 end
 
