@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'activerecord', '4.0.2'
+gem 'activerecord', '~> 4.0.2'
 gem 'capybara', '~> 2.2.1'
 gem 'nokogiri', '~> 1.6.1'
 gem 'rake', '~> 0.9.2.2'
