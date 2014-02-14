@@ -1,5 +1,6 @@
 /.idea
 /coverage
+Gemfile.lock
 
 # Gemnasium gem configuration file
 config/gemnasium.yml
