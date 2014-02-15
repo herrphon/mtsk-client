@@ -1,6 +1,9 @@
 require 'simplecov'
 require 'capybara/rspec'
 require 'webmock/rspec'
+require 'coveralls'
+
+Coveralls.wear!
 
 WebMock.disable_net_connect!(allow_localhost: true)
 
@@ -29,3 +32,5 @@ def add_dir_to_library_path(directory)
 end
 
 add_dir_to_library_path('../../lib')
+
+
