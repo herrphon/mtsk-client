@@ -9,6 +9,7 @@ end
 
 group :development, :test do
   gem 'capybara', '~> 2.2.1'
+  gem 'coveralls', require: false
   gem 'rspec', '~> 2.14.1'
   gem 'rspec-core', '~> 2.14.7'
   gem 'rspec-expectations', '~> 2.14.5'
