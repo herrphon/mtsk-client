@@ -1,38 +1,69 @@
-#!/home/avonrent/ruby2.0/bin/ruby
-##!/usr/bin/env ruby
-
-def add_dir_to_library_path(directory)
-  lib_dir = File.expand_path( File.join( File.dirname(__FILE__), directory ) )
-  $LOAD_PATH.unshift(lib_dir) unless $LOAD_PATH.include?(lib_dir)
-end
-
-add_dir_to_library_path('lib')
+#!/usr/bin/env ruby
 
 require 'pp'
 require 'logger'
+require 'json'
 
+# add lib dir to path
+lib_dir = File.expand_path( File.join( File.dirname(__FILE__), 'lib' ) )
+$LOAD_PATH.unshift(lib_dir) unless $LOAD_PATH.include?(lib_dir)
+
+require 'opt_parser'
 require 'web_data_scraper'
-require 'url_builder'
-require 'round_robin_database'
 
 
-# global logger
-$log = Logger.new(STDOUT)
-rrdtool = '/opt/rrdtool-1.4.8/bin/rrdtool'
+def get_commandline_options
+  parser = UTIL::OptParser.new
+  parser.option(:name, 'Optional, specify a name of the gas station.', String)
+  parser.option(:location, 'Specify the location via zip code or coordinates e.g. 76543 or 45.123,10.456.', String)
+  parser.option(:operator, 'Specify the operator name e.g. JET or AGIP.', String)
+  parser.option(:type, 'Optional, specify the type of gas (diesel, e5, e10). Default is e5.', String)
+  parser.option(:radius, 'Optional, specify radius in km. Default is 2.', Integer)
+  parser.option(:log, 'Optional, active logging')
+  parser.parse!
 
-sprit_monitor = WebDataScraper.new
-sprit_monitor.add_gas_station('Jet Durlach', '48.997,8.45645', 'JET')
-sprit_monitor.add_gas_station('Jet Pforzheim', 75175, 'JET')
+  unless parser.result[:location] and parser.result[:operator]
+    puts parser
+    exit 0
+  end
 
-pp sprit_monitor.update_all_gas_stations
+  case parser.result[:type]
+    when 'diesel'
+      parser.result[:gas_type] = 'diesel'
+    when 'e10'
+      parser.result[:gas_type] = 'e10'
+    else
+      parser.result[:gas_type] = 'e5'
+  end
 
-sprit_monitor.gas_stations.each { |gas_station|
-  pp gas_station
-  
-  # rrd = Round_Robin_Database.new(gas_station, rrdtool)
-  # rrd.update_rrd_db
-  # rrd.plot_rrd_graphics
-}
+  parser.result[:radius] = 2 unless parser.result[:radius]
+
+  if parser.result[:log]
+    $log = Logger.new(STDOUT)
+  end
+
+  return parser.result
+end
 
 
+
+if __FILE__ == $0
+  option = get_commandline_options
+
+  gas_station_data = {
+      :location => option[:location],
+      :radius => option[:radius],
+      :gas_type => option[:gas_type],
+      :operator => option[:operator]
+  }
+
+  begin
+    gas_station_data = WebDataScraper.update_gas_station_data(gas_station_data)
+  rescue Exception => e
+    gas_station_data[:error] = "ERROR"
+    gas_station_data[:error_message] = e.message
+  end
+
+  puts gas_station_data.to_json
+end
 

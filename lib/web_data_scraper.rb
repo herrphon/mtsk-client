@@ -3,62 +3,39 @@ require 'nokogiri'
 require 'open-uri'
 require 'json'
 
+require 'url_builder'
+
 
 class WebDataScraper
-  class GasStation < Hash
-    def initialize(name, location, operator, radius)
-      self[:name] = name
-      self[:location] = location
-      self[:operator] = operator
-      self[:radius] = radius || 2
-      self[:prices] = {}
-    end
-  end
+  def self.update_gas_station_data(gas_station_data)
+    url = UrlBuilder.new(gas_station_data).to_s
+    doc = Nokogiri::HTML(open(url))
 
-  attr_accessor :gas_stations, :gas_types
+    js_source = doc.css('div.content div.content-box script')[0].content
+    js_data = WebDataScraper.get_data_from_js_source(js_source)
 
-  def initialize(gas_stations = nil, gas_types = nil)
-    @gas_stations = gas_stations || []
-    @gas_types = gas_types || [:diesel, :e10, :e5]
-  end
+    gas_station_data[:price] = js_data[gas_station_data[:gas_type]].to_f
 
-  def add_gas_station(name, location, operator = nil, radius = nil)
-    @gas_stations << GasStation.new(name, location, operator, radius)
-  end
-
-  def update_all_gas_stations
-    result = {}
-    @gas_stations.each { |gas_station|
-      $log.info("Updating gas station #{gas_station[:name]}")
-      update_gas_station(gas_station)
+    ['laengengrad', 'breitengrad'].each { |key|
+      gas_station_data[key.to_sym] = js_data[key].to_f
     }
-  end
 
-  def update_gas_station(gas_station)
-    @gas_types.each { |gas_type|
-      gas_price_at_gas_station_url = UrlBuilder.new(gas_station, gas_type)
-      url = gas_price_at_gas_station_url.to_s
-      doc = Nokogiri::HTML(open(url))
-      js_source = doc.css('div.content div.content-box script')[0].content
-      js_data = WebDataScraper.get_data_from_js_source(js_source)
-      gas_station[:prices][gas_type] = js_data[gas_type.to_s]
-      
-      ['laengengrad', 'breitengrad'].each { |key|
-        gas_station[key.to_sym] = js_data[key].to_f
-      }
-
-      ['strasse', 'plz', 'ort'].each { |key|
-        gas_station[key.to_sym] = js_data[key]
-      }
+    ['strasse', 'ort'].each { |key|
+      gas_station_data[key.to_sym] = js_data[key]
     }
+    gas_station_data[:plz] = js_data['plz'].to_i
+
+    return gas_station_data
   end
 
   def self.get_data_from_js_source(js_source)
     json_string = js_source.match(/.*var\ spmResult\ =\ (.*);.*/)[1]
     json = JSON.parse(json_string)
     if json.size > 1
-      $log.info("Found more than one location - using first entry")
-      # $log.debug(json)
+      if $log
+        $log.info("Found more than one location - using first entry")
+        $log.debug(json)
+      end
     end
     return json[0]
   end
