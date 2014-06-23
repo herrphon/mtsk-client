@@ -15,11 +15,33 @@ Usage
 
 ```
 ./sprit-monitor.rb --name="Jet Durlach" --location=48.997,8.45645 --type=e10 --operator=JET
-{"location":"48.997,8.45645","radius":2,"gas_type":"e10","operator":"JET","price":1.489,"laengengrad":8.45645,"breitengrad":48.997,"strasse":"KILLISFELDSTR. 32","ort":"KARLSRUHE","plz":
-76227}
+>  {
+>    "location":"48.997,8.45645",
+>    "radius":2,
+>    "gas_type":"e10",
+>    "operator":"JET",
+>    "price":1.489,
+>    "laengengrad":8.45645,
+>    "breitengrad":48.997,
+>    "strasse":"KILLISFELDSTR. 32",
+>    "ort":"KARLSRUHE",
+>    "plz": 76227
+>  }
 
 ./sprit-monitor.rb --name="Jet Pforzheim" --location=75175 --type=e5 --operator=JET
-{"location":"75175","radius":2,"gas_type":"e5","operator":"JET","price":1.559,"laengengrad":8.72514,"breitengrad":48.8985,"strasse":"EUTINGER STR. 85","ort":"PFORZHEIM","plz":75175}
+>  {
+>     "location":"75175",
+>     "radius":2,
+>     "gas_type":"e5",
+>     "operator":"JET",
+>     "price":1.559,
+>     "laengengrad":8.72514,
+>     "breitengrad":48.8985,
+>     "strasse":"EUTINGER STR. 85",
+>     "ort":"PFORZHEIM",
+>     "plz":75175
+>   }
+
 ```
 
 Data can be sent to some logging tool, e.g. logstash. :-)
