@@ -43,7 +43,11 @@ class WebDataScraper
       js_data = WebDataScraper.get_data_from_js_source(js_source)
       gas_station[:prices][gas_type] = js_data[gas_type.to_s]
       
-      ['laengengrad', 'breitengrad', 'strasse', 'plz', 'ort'].each { |key|
+      ['laengengrad', 'breitengrad'].each { |key|
+        gas_station[key.to_sym] = js_data[key].to_f
+      }
+
+      ['strasse', 'plz', 'ort'].each { |key|
         gas_station[key.to_sym] = js_data[key]
       }
     }

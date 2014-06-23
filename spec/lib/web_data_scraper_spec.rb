@@ -17,7 +17,7 @@ describe WebDataScraper do
                 "            -->\n            "
     data = WebDataScraper.get_data_from_js_source(js_source)
   
-    data['e5'].should eq '1.479'
+    expect(data['e5']).to eq '1.479'
   end
 end
 
