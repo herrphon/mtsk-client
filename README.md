@@ -16,6 +16,7 @@ Usage
 ```
 ./sprit-monitor.rb --name="Jet Durlach" --location=48.997,8.45645 --type=e10 --operator=JET
 >  {
+>    "name":"Jet Durlach",
 >    "location":"48.997,8.45645",
 >    "radius":2,
 >    "gas_type":"e10",
@@ -30,6 +31,7 @@ Usage
 
 ./sprit-monitor.rb --name="Jet Pforzheim" --location=75175 --type=e5 --operator=JET
 >  {
+>     "name"="Jet Pforzheim",
 >     "location":"75175",
 >     "radius":2,
 >     "gas_type":"e5",

@@ -51,6 +51,7 @@ if __FILE__ == $0
   option = get_commandline_options
 
   gas_station_data = {
+      :name => option[:name],
       :location => option[:location],
       :radius => option[:radius],
       :gas_type => option[:gas_type],
