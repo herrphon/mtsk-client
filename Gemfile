@@ -18,3 +18,4 @@ group :development, :test do
   gem 'simplecov-html', '~> 0.8.0'
   gem 'webmock', '~> 1.18.0'
 end
+
