@@ -36,8 +36,8 @@ class WebDataScraper
 
   def update_gas_station(gas_station)
     @gas_types.each { |gas_type|
-      sprit_monitor_url = UrlBuilder.new(gas_station, gas_type)
-      url = sprit_monitor_url.to_s
+      gas_price_at_gas_station_url = UrlBuilder.new(gas_station, gas_type)
+      url = gas_price_at_gas_station_url.to_s
       doc = Nokogiri::HTML(open(url))
       js_source = doc.css('div.content div.content-box script')[0].content
       js_data = WebDataScraper.get_data_from_js_source(js_source)
