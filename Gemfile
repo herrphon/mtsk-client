@@ -2,9 +2,9 @@ source 'http://rubygems.org'
 
 group :staging, :production do
   gem 'activerecord', '~> 4.1.1'
-  gem 'nokogiri', '~> 1.6.1'
+  gem 'nokogiri', '~> 1.6.2.1'
   gem 'rake', '~> 10.3.2'
-  gem 'sqlite3', '~> 1.3.8'
+  gem 'sqlite3', '~> 1.3.9'
 end
 
 group :development, :test do
