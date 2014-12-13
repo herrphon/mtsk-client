@@ -11,7 +11,7 @@ class WebDataScraper
     url = UrlBuilder.new(gas_station_data).to_s
     doc = Nokogiri::HTML(open(url))
 
-    js_source = doc.css('div.content div.content-box script')[0].content
+    js_source = doc.css('div.content div.content-box script')[1].content
     js_data = WebDataScraper.get_data_from_js_source(js_source)
 
     gas_station_data[:price] = js_data[gas_station_data[:gas_type]].to_f
