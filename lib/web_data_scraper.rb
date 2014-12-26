@@ -16,8 +16,11 @@ class WebDataScraper
 
     gas_station_data[:price] = js_data[gas_station_data[:gas_type]].to_f
 
-    ['laengengrad', 'breitengrad'].each { |key|
-      gas_station_data[key.to_sym] = js_data[key].to_f
+    gas_station_data['pin'] = {
+        'location' => {
+            'lat' => js_data['breitengrad'].to_f,
+            'lon' => js_data['laengengrad'].to_f
+        }
     }
 
     ['strasse', 'ort'].each { |key|
