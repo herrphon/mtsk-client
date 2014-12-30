@@ -2,5 +2,6 @@
 /coverage
 Gemfile.lock
 
+*.sh
 # Gemnasium gem configuration file
 config/gemnasium.yml
