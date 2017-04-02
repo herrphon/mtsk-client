@@ -1,6 +1,7 @@
 /.idea
+*.iml
+
 /coverage
-Gemfile.lock
 
 *.sh
 # Gemnasium gem configuration file
