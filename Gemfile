@@ -1,12 +1,13 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
-group :staging, :production do
-  gem 'activerecord'
-  gem 'nokogiri'
-  gem 'rake'
-end
+ruby '2.4.0'
 
-group :development, :test do
+gem 'activerecord'
+gem 'nokogiri'
+gem 'rake'
+gem 'thor'
+
+group :test do
   gem 'capybara'
   gem 'coveralls', require: false
   gem 'rspec'

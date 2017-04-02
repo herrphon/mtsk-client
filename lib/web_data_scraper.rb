@@ -1,9 +1,8 @@
-require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
 require 'json'
 
-require 'url_builder'
+require_relative 'url_builder'
 
 
 class WebDataScraper
