@@ -6,4 +6,5 @@ rvm:
   - ruby-head
 before_install:
   - sed -i '2,3d' Gemfile
+  - rm Gemfile.lock
 script: "bundle exec rake spec"
