@@ -4,4 +4,4 @@ rvm:
   - 2.2.0
   - 2.4.0
   - ruby-head
-script: "rake spec"
+script: "bundle exec rake spec"
