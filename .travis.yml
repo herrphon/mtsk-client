@@ -4,4 +4,6 @@ rvm:
   - 2.2.0
   - 2.4.0
   - ruby-head
+before_install:
+  - sed -i '2,3d' Gemfile
 script: "bundle exec rake spec"
