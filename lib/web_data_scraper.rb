@@ -11,21 +11,21 @@ class WebDataScraper
     doc = Nokogiri::HTML(open(url))
 
     js_source = doc.css('div.content div.content-box script')[1].content
+
     js_data = WebDataScraper.get_data_from_js_source(js_source)
 
+    require 'pp'
+    pp js_data
+
+    gas_station_data = {}
     gas_station_data[:price] = js_data[gas_station_data[:gas_type]].to_f
 
-    gas_station_data['pin'] = {
-        'location' => {
-            'lat' => js_data['breitengrad'].to_f,
-            'lon' => js_data['laengengrad'].to_f
-        }
-    }
+    gas_station_data[:latitude] = js_data['breitengrad'].to_f
+    gas_station_data[:longitude] = js_data['laengengrad'].to_f
 
-    ['strasse', 'ort'].each { |key|
-      gas_station_data[key.to_sym] = js_data[key]
-    }
-    gas_station_data[:plz] = js_data['plz'].to_i
+    gas_station_data[:street] = js_data['strasse']
+    gas_station_data[:city] = js_data['ort']
+    gas_station_data[:zip_code] = js_data['plz'].to_i
 
     return gas_station_data
   end

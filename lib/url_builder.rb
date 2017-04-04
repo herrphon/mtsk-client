@@ -1,36 +1,40 @@
+require 'cgi'
+require 'uri'
 
 class UrlBuilder
-  attr_accessor :option
+  def initialize(params = { name: 'Jet Durlach',
+                            location: '48.997,8.45645',
+                            radius: 2,
+                            gas_type: 'e10',
+                            operator: 'JET' })
 
-  def initialize(gas_station_data)
-    @base_url = "http://www.spritpreismonitor.de/suche/?"
-    @option = MyHash.new
-    @option['plzOrtGeo'] = gas_station_data[:location]
-    @option['umkreis'] = gas_station_data[:radius]
-    @option['kraftstoffart'] = gas_station_data[:gas_type]
-    @option['tankstellenbetreiber'] = gas_station_data[:operator]
+    @query_options = {}
+    @query_options["tx_spritpreismonitor_pi1[searchRequest][#{name}]"] = nil
+    @query_options['plzOrtGeo'] = params[:location]
+    @query_options['umkreis'] = params[:radius]
+    @query_options['kraftstoffart'] = params[:gas_type]
+    @query_options['tankstellenbetreiber'] = params[:operator]
   end
 
+  def to_query( input = { key: value } )
+    input.map {|k, v|
+      if v
+        "#{k} = #{CGI::escape v}"
+      else
+        CGI::escape(k)
+      end
+    }.join("&")
+  end
+
+
+  #  http://www.spritpreismonitor.de/suche/?
+  #    tx_spritpreismonitor_pi1[searchRequest][#{name}]
+  #
+  #    tx_spritpreismonitor_pi1%5BsearchRequest%5D%5B#{name}%5D
   def to_s
-    @base_url + @option.values.join('&')
+    URI::HTTP.build(host: 'www.spritpreismonitor.de',
+                    path: '/suche/',
+                    query: to_query(@query_options)).to_s
   end
 
-  private
-    class MyHash < Hash
-      class Option
-        def initialize(name, value)
-          # @name = "tx_spritpreismonitor_pi1[searchRequest][#{name}]"
-          @name = "tx_spritpreismonitor_pi1%5BsearchRequest%5D%5B#{name}%5D"
-          @value = value
-        end
-        def to_s
-          "#{@name}=#{@value}"
-        end
-      end
-
-      def []=(name, value)
-        option = Option.new(name, value)
-        super(name, option)
-      end
-    end
 end

@@ -9,9 +9,9 @@ Cli.start(ARGV)
 options = Cli.options
 
 gas_station_data = {
-    name: options['name'],
+    name:     options['name'],
     location: options['location'],
-    radius: options['radius'],
+    radius:   options['radius'],
     gas_type: options['type'],
     operator: options['operator']
 }

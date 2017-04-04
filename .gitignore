@@ -6,3 +6,5 @@
 *.sh
 # Gemnasium gem configuration file
 config/gemnasium.yml
+
+spec/examples.txt

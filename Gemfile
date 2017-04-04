@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 ruby '2.4.0'
 
-gem 'activerecord'
 gem 'nokogiri'
 gem 'rake'
 gem 'thor'
