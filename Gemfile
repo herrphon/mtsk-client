@@ -4,7 +4,7 @@ ruby '2.4.0'
 
 gem 'nokogiri'
 gem 'rake'
-gem 'thor'
+gem 'gli'
 
 group :test do
   gem 'capybara'

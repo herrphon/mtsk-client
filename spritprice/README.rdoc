@@ -1,0 +1,6 @@
+= spritprice
+
+Describe your project here
+
+:include:spritprice.rdoc
+

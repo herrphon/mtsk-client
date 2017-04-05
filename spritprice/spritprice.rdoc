@@ -1,0 +1,5 @@
+= spritprice
+
+Generate this with
+    spritprice rdoc
+After you have described your command line interface
