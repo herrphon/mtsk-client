@@ -10,30 +10,26 @@ class WebDataScraper
                                           location: '48.997,8.45645',
                                           radius: 2,
                                           gas_type: 'e10',
-                                          operator: 'JET' })
+                                          brand: 'JET' })
     url = UrlBuilder.new(params).to_s
-    puts url
-
     doc = Nokogiri::HTML(open(url))
 
     js_source = doc.css('div.content div.content-box script')[1].content
     js_data = get_data_from_js_source(js_source)
 
-    puts "---"
-    puts js_data.inspect()
-    puts "---"
-
     result = {}
-    result[:name] = params[:name]
+    result[:name] = params[:name] if params[:name]
     result[:mtsk_id] = js_data['mtsk_id']
+    result[:brand] = js_data['marke']
+
     result[:type] = params[:gas_type]
     result[:price] = js_data[params[:gas_type]].to_f
 
     result[:latitude] = js_data['breitengrad'].to_f
     result[:longitude] = js_data['laengengrad'].to_f
 
-    result[:street] = js_data['strasse']
-    result[:city] = js_data['ort']
+    result[:street] = js_data['strasse'].capitalize
+    result[:city] = js_data['ort'].capitalize
     result[:zip_code] = js_data['plz'].to_i
 
     result[:distance] = js_data['entfernung']

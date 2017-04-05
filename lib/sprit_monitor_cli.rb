@@ -9,10 +9,10 @@ class SpritMonitorCli < Thor
                 :aliases => '-n',
                 :required => true,
                 :desc => 'Name'
-  method_option :operator,
-                :aliases => '-o',
+  method_option :brand,
+                :aliases => '-b',
                 :required => true,
-                :desc => 'Operator'
+                :desc => 'Brand'
   method_option :type,
                 :aliases => :t,
                 :required => true,
@@ -32,7 +32,7 @@ class SpritMonitorCli < Thor
         location: options['location'],
         radius:   options['radius'],
         gas_type: options['type'],
-        operator: options['operator']
+        brand: options['brand']
     }
 
     Main.run(gas_station_data)

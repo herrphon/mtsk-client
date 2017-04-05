@@ -6,13 +6,13 @@ class UrlBuilder
                             location: '48.997,8.45645',
                             radius: 2,
                             gas_type: 'e10',
-                            operator: 'JET' })
+                            brand: 'JET' })
 
     @query_options = {}
     @query_options['plzOrtGeo'] = params[:location]
     @query_options['umkreis'] = params[:radius].to_s
     @query_options['kraftstoffart'] = params[:gas_type]
-    @query_options['tankstellenbetreiber'] = params[:operator]
+    @query_options['tankstellenbetreiber'] = params[:brand]
   end
 
 

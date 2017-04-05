@@ -12,38 +12,46 @@ sprit-monitor
 Usage
 -----
 
-
 ```
-./bin/sprit-monitor.rb get --name="Jet Durlach" --location=48.997,8.45645 --type=e10 --operator=JET
->  {
->    "name":"Jet Durlach",
->    "location":"48.997,8.45645",
->    "radius":2,
->    "gas_type":"e10",
->    "operator":"JET",
->    "price":1.489,
->    "laengengrad":8.45645,
->    "breitengrad":48.997,
->    "strasse":"KILLISFELDSTR. 32",
->    "ort":"KARLSRUHE",
->    "plz": 76227
->  }
-
-./bin/sprit-monitor.rb get --name="Jet Pforzheim" --location=75175 --type=e5 --operator=JET
->  {
->     "name"="Jet Pforzheim",
->     "location":"75175",
->     "radius":2,
->     "gas_type":"e5",
->     "operator":"JET",
->     "price":1.559,
->     "laengengrad":8.72514,
->     "breitengrad":48.8985,
->     "strasse":"EUTINGER STR. 85",
->     "ort":"PFORZHEIM",
->     "plz":75175
->   }
-
+$ ./bin/sprit-monitor 
+Sprit Monitor commands:
+  sprit-monitor get -l, --location=LOCATION -n, --name=NAME -o, --operator=OPERATOR t, --type=TYPE  # get price
+  sprit-monitor help [COMMAND]                                                                      # Describe available commands or one specific command
 ```
 
-Data can be sent to some logging tool, e.g. logstash. :-)
+
+
+Example
+-------
+
+```
+$ ./bin/sprit-monitor get --name="Jet Durlach" --location=48.997,8.45645 --type=e10 --operator=JET
+{
+  "name": "Jet Durlach",
+  "mtsk_id": "51D4B432A0951AA0E10080009459E03A",
+  "type": "e10",
+  "price": 1.299,
+  "latitude": 48.997,
+  "longitude": 8.45645,
+  "street": "Killisfeldstr. 32",
+  "city": "Karlsruhe",
+  "zip_code": 76227,
+  "distance": "0.00"
+}
+
+
+$ ./bin/sprit-monitor get --name="Jet Pforzheim" --location=75175 --type=e5 --operator=JET
+{
+  "name": "Jet Pforzheim",
+  "mtsk_id": "51D4B6B4A0951AA0E10080009459E03A",
+  "type": "e5",
+  "price": 1.289,
+  "latitude": 48.8937,
+  "longitude": 8.69659,
+  "street": "Luisenstr. 16",
+  "city": "Pforzheim",
+  "zip_code": 75172,
+  "distance": "1.95"
+}
+```
+
