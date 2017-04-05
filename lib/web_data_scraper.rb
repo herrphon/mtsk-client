@@ -6,28 +6,39 @@ require_relative 'url_builder'
 
 
 class WebDataScraper
-  def self.update_gas_station_data(gas_station_data)
-    url = UrlBuilder.new(gas_station_data).to_s
+  def self.get_gas_station_data(params = {name: 'Jet Durlach',
+                                          location: '48.997,8.45645',
+                                          radius: 2,
+                                          gas_type: 'e10',
+                                          operator: 'JET' })
+    url = UrlBuilder.new(params).to_s
+    puts url
+
     doc = Nokogiri::HTML(open(url))
 
     js_source = doc.css('div.content div.content-box script')[1].content
+    js_data = get_data_from_js_source(js_source)
 
-    js_data = WebDataScraper.get_data_from_js_source(js_source)
+    puts "---"
+    puts js_data.inspect()
+    puts "---"
 
-    require 'pp'
-    pp js_data
+    result = {}
+    result[:name] = params[:name]
+    result[:mtsk_id] = js_data['mtsk_id']
+    result[:type] = params[:gas_type]
+    result[:price] = js_data[params[:gas_type]].to_f
 
-    gas_station_data = {}
-    gas_station_data[:price] = js_data[gas_station_data[:gas_type]].to_f
+    result[:latitude] = js_data['breitengrad'].to_f
+    result[:longitude] = js_data['laengengrad'].to_f
 
-    gas_station_data[:latitude] = js_data['breitengrad'].to_f
-    gas_station_data[:longitude] = js_data['laengengrad'].to_f
+    result[:street] = js_data['strasse']
+    result[:city] = js_data['ort']
+    result[:zip_code] = js_data['plz'].to_i
 
-    gas_station_data[:street] = js_data['strasse']
-    gas_station_data[:city] = js_data['ort']
-    gas_station_data[:zip_code] = js_data['plz'].to_i
+    result[:distance] = js_data['entfernung']
 
-    return gas_station_data
+    return result
   end
 
   def self.get_data_from_js_source(js_source)
