@@ -14,9 +14,10 @@ Usage
 
 ```
 $ ./bin/sprit-monitor 
-Sprit Monitor commands:
-  sprit-monitor get -l, --location=LOCATION -n, --name=NAME -o, --operator=OPERATOR t, --type=TYPE  # get price
-  sprit-monitor help [COMMAND]                                                                      # Describe available commands or one specific command
+  Sprit Monitor commands:
+    sprit-monitor get -b, --brand=BRAND -l, --location=LOCATION -n, --name=NAME t, --type=TYPE  # get price
+    sprit-monitor help [COMMAND]                                                                # Describe available commands or one specific command
+  
 ```
 
 
@@ -25,10 +26,11 @@ Example
 -------
 
 ```
-$ ./bin/sprit-monitor get --name="Jet Durlach" --location=48.997,8.45645 --type=e10 --operator=JET
+$ ./bin/sprit-monitor get --name="Jet Durlach" --location=48.997,8.45645 --type=e10 --brand=JET
 {
   "name": "Jet Durlach",
   "mtsk_id": "51D4B432A0951AA0E10080009459E03A",
+  "brand": "JET",
   "type": "e10",
   "price": 1.299,
   "latitude": 48.997,
@@ -40,10 +42,11 @@ $ ./bin/sprit-monitor get --name="Jet Durlach" --location=48.997,8.45645 --type=
 }
 
 
-$ ./bin/sprit-monitor get --name="Jet Pforzheim" --location=75175 --type=e5 --operator=JET
+$ ./bin/sprit-monitor get --name="Jet Pforzheim" --location=75175 --type=e5 --brand=JET
 {
   "name": "Jet Pforzheim",
   "mtsk_id": "51D4B6B4A0951AA0E10080009459E03A",
+  "brand": "JET",
   "type": "e5",
   "price": 1.289,
   "latitude": 48.8937,
