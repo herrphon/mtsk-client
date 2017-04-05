@@ -1,6 +1,4 @@
-require 'spec_helper'
-
-feature 'External request' do
+RSpec.describe 'External request' do
 
   it 'should throw an exception when accessed' do
     uri = URI('http://test.de')

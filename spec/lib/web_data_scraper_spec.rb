@@ -1,8 +1,6 @@
-require 'spec_helper'
 require 'web_data_scraper'
 
-
-describe WebDataScraper do
+RSpec.describe WebDataScraper do
   it "should parse the js data into a data object" do
     js_source = "\n            <!--\n                var spmResult = " +
                 "[{\"mtsk_id\":\"51D4B432A0951AA0E10080009459E03A\"," +

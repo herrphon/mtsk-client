@@ -6,28 +6,35 @@ require_relative 'url_builder'
 
 
 class WebDataScraper
-  def self.update_gas_station_data(gas_station_data)
-    url = UrlBuilder.new(gas_station_data).to_s
+  def self.get_gas_station_data(params = {name: 'Jet Durlach',
+                                          location: '48.997,8.45645',
+                                          radius: 2,
+                                          gas_type: 'e10',
+                                          brand: 'JET' })
+    url = UrlBuilder.new(params).to_s
     doc = Nokogiri::HTML(open(url))
 
     js_source = doc.css('div.content div.content-box script')[1].content
-    js_data = WebDataScraper.get_data_from_js_source(js_source)
+    js_data = get_data_from_js_source(js_source)
 
-    gas_station_data[:price] = js_data[gas_station_data[:gas_type]].to_f
+    result = {}
+    result[:name] = params[:name] if params[:name]
+    result[:mtsk_id] = js_data['mtsk_id']
+    result[:brand] = js_data['marke']
 
-    gas_station_data['pin'] = {
-        'location' => {
-            'lat' => js_data['breitengrad'].to_f,
-            'lon' => js_data['laengengrad'].to_f
-        }
-    }
+    result[:type] = params[:gas_type]
+    result[:price] = js_data[params[:gas_type]].to_f
 
-    ['strasse', 'ort'].each { |key|
-      gas_station_data[key.to_sym] = js_data[key]
-    }
-    gas_station_data[:plz] = js_data['plz'].to_i
+    result[:latitude] = js_data['breitengrad'].to_f
+    result[:longitude] = js_data['laengengrad'].to_f
 
-    return gas_station_data
+    result[:street] = js_data['strasse'].capitalize
+    result[:city] = js_data['ort'].capitalize
+    result[:zip_code] = js_data['plz'].to_i
+
+    result[:distance] = js_data['entfernung']
+
+    return result
   end
 
   def self.get_data_from_js_source(js_source)

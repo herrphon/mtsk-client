@@ -1,36 +1,35 @@
+require 'cgi'
+require 'uri'
 
 class UrlBuilder
-  attr_accessor :option
+  def initialize(params = { name: 'Jet Durlach',
+                            location: '48.997,8.45645',
+                            radius: 2,
+                            gas_type: 'e10',
+                            brand: 'JET' })
 
-  def initialize(gas_station_data)
-    @base_url = "http://www.spritpreismonitor.de/suche/?"
-    @option = MyHash.new
-    @option['plzOrtGeo'] = gas_station_data[:location]
-    @option['umkreis'] = gas_station_data[:radius]
-    @option['kraftstoffart'] = gas_station_data[:gas_type]
-    @option['tankstellenbetreiber'] = gas_station_data[:operator]
+    @query_options = {}
+    @query_options['plzOrtGeo'] = params[:location]
+    @query_options['umkreis'] = params[:radius].to_s
+    @query_options['kraftstoffart'] = params[:gas_type]
+    @query_options['tankstellenbetreiber'] = params[:brand]
   end
+
 
   def to_s
-    @base_url + @option.values.join('&')
+    URI::HTTP.build(host: 'www.spritpreismonitor.de',
+                    path: '/suche/',
+                    query: to_query(@query_options)).to_s
   end
 
-  private
-    class MyHash < Hash
-      class Option
-        def initialize(name, value)
-          # @name = "tx_spritpreismonitor_pi1[searchRequest][#{name}]"
-          @name = "tx_spritpreismonitor_pi1%5BsearchRequest%5D%5B#{name}%5D"
-          @value = value
-        end
-        def to_s
-          "#{@name}=#{@value}"
-        end
-      end
 
-      def []=(name, value)
-        option = Option.new(name, value)
-        super(name, option)
-      end
-    end
+  def to_query( input = { key: value } )
+    # key: tx_spritpreismonitor_pi1[searchRequest][#{name}]
+    input.map {|k, v|
+      key = CGI::escape "tx_spritpreismonitor_pi1[searchRequest][#{k}]"
+      value = CGI::escape v
+      "#{key}=#{value}"
+    }.join('&')
+  end
+
 end
