@@ -1,8 +1,8 @@
 # Ensure we require the local version and not one we might have installed already
-require File.join([File.dirname(__FILE__),'lib','spritprice','version.rb'])
+require File.join([File.dirname(__FILE__),'lib','mtsk-client','version.rb'])
 spec = Gem::Specification.new do |s| 
-  s.name = 'spritprice'
-  s.version = Spritprice::VERSION
+  s.name = 'mtsk-client'
+  s.version = MtskClient::VERSION
   s.author = 'Your Name Here'
   s.email = 'your@email.address.com'
   s.homepage = 'http://your.website.com'
@@ -12,10 +12,10 @@ spec = Gem::Specification.new do |s|
 ")
   s.require_paths << 'lib'
   s.has_rdoc = true
-  s.extra_rdoc_files = ['README.rdoc','spritprice.rdoc']
-  s.rdoc_options << '--title' << 'spritprice' << '--main' << 'README.rdoc' << '-ri'
+  s.extra_rdoc_files = ['README.rdoc','mtsk-client.rdoc']
+  s.rdoc_options << '--title' << 'mtsk-client' << '--main' << 'README.rdoc' << '-ri'
   s.bindir = 'bin'
-  s.executables << 'spritprice'
+  s.executables << 'mtsk-client'
   s.add_development_dependency('rake')
   s.add_development_dependency('rdoc')
   s.add_development_dependency('aruba')

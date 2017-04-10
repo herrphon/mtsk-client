@@ -1,5 +1,5 @@
-= spritprice
+= mtsk-client
 
 Generate this with
-    spritprice rdoc
+    mtsk-client rdoc
 After you have described your command line interface

@@ -1,11 +1,11 @@
 #!/usr/bin/env ruby
 require 'gli'
 begin # XXX: Remove this begin/rescue before distributing your app
-require 'spritprice'
+require 'mtsk-client'
 rescue LoadError
-  STDERR.puts "In development, you need to use `bundle exec bin/spritprice` to run your app"
+  STDERR.puts "In development, you need to use `bundle exec bin/mtsk-client` to run your app"
   STDERR.puts "At install-time, RubyGems will make sure lib, etc. are in the load path"
-  STDERR.puts "Feel free to remove this message from bin/spritprice now"
+  STDERR.puts "Feel free to remove this message from bin/mtsk-client now"
   exit 64
 end
 
@@ -13,7 +13,7 @@ include GLI::App
 
 program_desc 'Describe your application here'
 
-version Spritprice::VERSION
+version MtskClient::VERSION
 
 subcommand_option_handling :normal
 arguments :strict
