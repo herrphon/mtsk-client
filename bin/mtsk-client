@@ -43,6 +43,17 @@ command :get do |c|
     # raise "that command made no sense"
 
     puts "get command ran"
+
+    gas_station_data = {
+        name:     options['name'],
+        location: options['location'],
+        radius:   options['radius'],
+        gas_type: options['type'],
+        brand: options['brand']
+    }
+
+    MtskClient.run(gas_station_data)
+
   end
 end
 
