@@ -1,6 +1,6 @@
-require 'web_data_scraper'
+require 'mtsk-client/web_data_scraper'
 
-RSpec.describe WebDataScraper do
+RSpec.describe MtskClient::WebDataScraper do
   it "should parse the js data into a data object" do
     js_source = "\n            <!--\n                var spmResult = " +
                 "[{\"mtsk_id\":\"51D4B432A0951AA0E10080009459E03A\"," +
@@ -13,7 +13,7 @@ RSpec.describe WebDataScraper do
                 "= new SpmConfig(\"e5\", 48.9881, 8.47434, 2, \"http://www." + 
                 "spritpreismonitor.de/\", false, \"28.10.13 18:03:12\");\n" + 
                 "            -->\n            "
-    data = WebDataScraper.get_data_from_js_source(js_source)
+    data = MtskClient::WebDataScraper.get_data_from_js_source(js_source)
   
     expect(data['e5']).to eq '1.479'
   end

@@ -1,16 +1,7 @@
-require 'simplecov'
-require 'capybara/rspec'
 require 'webmock/rspec'
-require 'coveralls'
 
-Coveralls.wear!
 
 WebMock.disable_net_connect!(allow_localhost: true)
-
-SimpleCov.start do
-  add_filter '/spec'
-  add_filter '/config'
-end
 
 
 
