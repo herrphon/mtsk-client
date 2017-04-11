@@ -23,7 +23,7 @@ spec = Gem::Specification.new do |s|
   s.rdoc_options << '--title' << 'mtsk-client' << '--main' << 'README.rdoc' << '-ri'
 
 
-  s.add_runtime_dependency('gli','2.16.0')
+  # s.add_runtime_dependency('gli','2.16.0')
   s.add_runtime_dependency('nokogiri')
   s.add_runtime_dependency('gli')
 

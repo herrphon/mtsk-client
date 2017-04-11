@@ -18,38 +18,49 @@ version MtskClient::VERSION
 subcommand_option_handling :normal
 arguments :strict
 
-desc 'Describe some switch here'
-switch [:s,:switch]
+# desc 'Describe some switch here'
+# switch [:s,:switch]
 
-desc 'Describe some flag here'
-default_value 'the default'
-arg_name 'The name of the argument'
-flag [:f,:flagname]
+# desc 'Describe some flag here'
+# default_value 'the default'
+# arg_name 'The name of the argument'
+# flag [:f,:flagname]
 
-desc 'Describe get here'
-arg_name 'Describe arguments to get here'
+
+desc 'Get mtsk data'
+arg_name 'name, location, radius, type & brand'
 command :get do |c|
-  c.desc 'Describe a switch to get'
-  c.switch :s
+  c.desc 'name'
+  c.default_value 'Jet Durlach'
+  c.flag [:n, :name]
 
-  c.desc 'Describe a flag to get'
-  c.default_value 'default'
-  c.flag :f
+  c.desc 'location'
+  c.default_value '48.997,8.45645'
+  c.flag [:l, :location]
+
+  c.desc 'radius'
+  c.default_value '2'
+  c.flag [:r, :radius]
+
+  c.desc 'type'
+  c.default_value 'e10'
+  c.flag [:t, :type]
+
+  c.desc 'brand'
+  c.default_value 'JET'
+  c.flag [:b, :brand]
+
   c.action do |global_options,options,args|
 
-    # Your command logic here
-     
     # If you have any errors, just raise them
     # raise "that command made no sense"
-
-    puts "get command ran"
 
     gas_station_data = {
         name:     options['name'],
         location: options['location'],
         radius:   options['radius'],
         gas_type: options['type'],
-        brand: options['brand']
+        brand:    options['brand']
     }
 
     MtskClient.run(gas_station_data)

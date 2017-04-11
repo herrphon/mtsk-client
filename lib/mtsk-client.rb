@@ -8,20 +8,17 @@ require 'mtsk-client/web_data_scraper'
 require 'json'
 
 
-class MtskClient
+module MtskClient
   def self.run(params = {name: 'Jet Durlach',
                          location: '48.997,8.45645',
                          radius: 2,
                          gas_type: 'e10',
                          brand: 'JET' })
-    result = {}
     begin
-      result = WebDataScraper.get_gas_station_data(params)
+      puts JSON.pretty_generate WebDataScraper.get_gas_station_data(params)
     rescue Exception => e
-      result[:error] = 'ERROR'
-      result[:error_message] = e.message
+      puts JSON.pretty_generate error: 'ERROR', error_message: e.message
     end
 
-    puts JSON.pretty_generate(result)
   end
 end
