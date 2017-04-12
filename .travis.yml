@@ -2,7 +2,6 @@ language: ruby
 rvm:
   - 2.4.0
   - ruby-head
-before_install:
-  - sed -i '2,3d' Gemfile
-  - rm Gemfile.lock
-script: "bundle exec rspec"
+script:
+  - bundle install
+  - bundle exec rspec
