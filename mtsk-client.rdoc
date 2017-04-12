@@ -1,0 +1,5 @@
+= mtsk-client
+
+Generate this with
+    mtsk-client rdoc
+After you have described your command line interface

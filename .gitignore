@@ -7,4 +7,4 @@
 # Gemnasium gem configuration file
 config/gemnasium.yml
 
-spec/examples.txt
+mtsk-client/spec/examples.txt

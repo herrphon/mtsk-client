@@ -1,0 +1,92 @@
+#!/usr/bin/env ruby
+require 'gli'
+begin # XXX: Remove this begin/rescue before distributing your app
+require 'mtsk-client'
+rescue LoadError
+  STDERR.puts "In development, you need to use `bundle exec bin/mtsk-client` to run your app"
+  STDERR.puts "At install-time, RubyGems will make sure lib, etc. are in the load path"
+  STDERR.puts "Feel free to remove this message from bin/mtsk-client now"
+  exit 64
+end
+
+include GLI::App
+
+program_desc 'Describe your application here'
+
+version MtskClient::VERSION
+
+subcommand_option_handling :normal
+arguments :strict
+
+# desc 'Describe some switch here'
+# switch [:s,:switch]
+
+# desc 'Describe some flag here'
+# default_value 'the default'
+# arg_name 'The name of the argument'
+# flag [:f,:flagname]
+
+
+desc 'Get mtsk data'
+arg_name 'name, location, radius, type & brand'
+command :get do |c|
+  c.desc 'name'
+  c.default_value 'Jet Durlach'
+  c.flag [:n, :name]
+
+  c.desc 'location'
+  c.default_value '48.997,8.45645'
+  c.flag [:l, :location]
+
+  c.desc 'radius'
+  c.default_value '2'
+  c.flag [:r, :radius]
+
+  c.desc 'type'
+  c.default_value 'e10'
+  c.flag [:t, :type]
+
+  c.desc 'brand'
+  c.default_value 'JET'
+  c.flag [:b, :brand]
+
+  c.action do |global_options,options,args|
+
+    # If you have any errors, just raise them
+    # raise "that command made no sense"
+
+    gas_station_data = {
+        name:     options['name'],
+        location: options['location'],
+        radius:   options['radius'],
+        gas_type: options['type'],
+        brand:    options['brand']
+    }
+
+    MtskClient.run(gas_station_data)
+
+  end
+end
+
+pre do |global,command,options,args|
+  # Pre logic here
+  # Return true to proceed; false to abort and not call the
+  # chosen command
+  # Use skips_pre before a command to skip this block
+  # on that command only
+  true
+end
+
+post do |global,command,options,args|
+  # Post logic here
+  # Use skips_post before a command to skip this
+  # block on that command only
+end
+
+on_error do |exception|
+  # Error logic here
+  # return false to skip default error handling
+  true
+end
+
+exit run(ARGV)
