@@ -1,5 +1,5 @@
-sprit-monitor
-=============
+mtsk-client
+===========
 
 [![GitHub version](https://badge.fury.io/gh/herrphon%2Fsprit-monitor.png)](http://badge.fury.io/gh/)
 [![gemnasium dependency status](https://gemnasium.com/herrphon/sprit-monitor.png)](https://gemnasium.com/herrphon/sprit-monitor)
@@ -13,10 +13,25 @@ Usage
 -----
 
 ```
-$ ./bin/sprit-monitor 
-  Sprit Monitor commands:
-    sprit-monitor get -b, --brand=BRAND -l, --location=LOCATION -n, --name=NAME t, --type=TYPE  # get price
-    sprit-monitor help [COMMAND]                                                                # Describe available commands or one specific command
+$ ./bin/mtsk-client 
+
+  NAME
+      mtsk-client - Describe your application here
+  
+  SYNOPSIS
+      mtsk-client [global options] command [command options] [arguments...]
+  
+  VERSION
+      0.0.1
+  
+  GLOBAL OPTIONS
+      --help    - Show this message
+      --version - Display the program version
+  
+  COMMANDS
+      get  - Get mtsk data
+      help - Shows a list of commands or help for one command
+                                                              # Describe available commands or one specific command
   
 ```
 
@@ -26,23 +41,23 @@ Example
 -------
 
 ```
-$ ./bin/sprit-monitor get --name="Jet Durlach" --location=48.997,8.45645 --type=e10 --brand=JET
-{
-  "name": "Jet Durlach",
-  "mtsk_id": "51D4B432A0951AA0E10080009459E03A",
-  "brand": "JET",
-  "type": "e10",
-  "price": 1.299,
-  "latitude": 48.997,
-  "longitude": 8.45645,
-  "street": "Killisfeldstr. 32",
-  "city": "Karlsruhe",
-  "zip_code": 76227,
-  "distance": "0.00"
-}
+$ ./bin/mtsk-client get --name="Jet Durlach" --location=48.997,8.45645 --type=e10 --brand=JET
+  {
+    "name": "Jet Durlach",
+    "mtsk_id": "51D4B432A0951AA0E10080009459E03A",
+    "brand": "JET",
+    "type": "e10",
+    "price": 1.399,
+    "latitude": 48.997,
+    "longitude": 8.45645,
+    "street": "Killisfeldstr. 32",
+    "city": "Karlsruhe",
+    "zip_code": 76227,
+    "distance": "0.00"
+  }
 
 
-$ ./bin/sprit-monitor get --name="Jet Pforzheim" --location=75175 --type=e5 --brand=JET
+$ ./bin/mtsk-client get --name="Jet Pforzheim" --location=75175 --type=e5 --brand=JET
 {
   "name": "Jet Pforzheim",
   "mtsk_id": "51D4B6B4A0951AA0E10080009459E03A",
