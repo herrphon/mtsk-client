@@ -1,4 +1,0 @@
-#!/usr/bin/env ruby
-
-require_relative '../lib/sprit_monitor_cli'
-SpritMonitorCli.start(ARGV)

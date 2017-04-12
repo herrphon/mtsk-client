@@ -9,14 +9,14 @@ require 'json'
 
 
 module MtskClient
-  def self.run(params = {name: 'Jet Durlach',
-                         location: '48.997,8.45645',
-                         radius: 2,
-                         gas_type: 'e10',
-                         brand: 'JET' })
+  def self.run(params = { name: 'Jet Durlach',
+                          location: '48.997,8.45645',
+                          radius: 2,
+                          gas_type: 'e10',
+                          brand: 'JET' })
     begin
       puts JSON.pretty_generate WebDataScraper.get_gas_station_data(params)
-    rescue Exception => e
+    rescue => e
       puts JSON.pretty_generate error: 'ERROR', error_message: e.message
     end
 
